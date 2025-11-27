@@ -1,11 +1,8 @@
-// pages/splash_page.dart
-
 import 'package:flutter/material.dart';
-import '../services/auth_service.dart'; // Untuk cek login
-import 'login_page.dart'; // Halaman login
-import 'main_shell_page.dart'; // Halaman utama setelah login
+import '../services/auth_service.dart';
+import 'login_page.dart';
+import 'main_shell_page.dart';
 
-// Halaman pertama yang muncul, hanya cek status login
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -17,21 +14,19 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    _checkLogin(); // Begitu halaman dibuat, langsung cek login
+    _checkLogin();
   }
 
   Future<void> _checkLogin() async {
-    final loggedIn = await AuthService.isLoggedIn(); // Cek status login
-    if (!mounted) return; // Pastikan widget masih aktif
+    final loggedIn = await AuthService.isLoggedIn();
+    if (!mounted) return;
 
     if (loggedIn) {
-      // Kalau sudah login, ke MainShellPage
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const MainShellPage()),
       );
     } else {
-      // Kalau belum login, ke LoginPage
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const LoginPage()),
@@ -41,10 +36,8 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    // UI sederhana: logo + loading
     return Scaffold(
       body: Container(
-        // Background gradient agar lebih bagus
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [

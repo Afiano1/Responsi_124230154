@@ -1,9 +1,7 @@
-// pages/login_page.dart
-
 import 'package:flutter/material.dart';
-import '../services/auth_service.dart'; // Untuk login
-import 'main_shell_page.dart'; // Halaman utama setelah login
-import 'register_page.dart'; // Untuk link ke registrasi
+import '../services/auth_service.dart';
+import 'main_shell_page.dart';
+import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,20 +11,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>(); // Key form
-  final _usernameC = TextEditingController(); // Controller username
-  final _passwordC = TextEditingController(); // Controller password
-  bool _loading = false; // State untuk loading
+  final _formKey = GlobalKey<FormState>();
+  final _usernameC = TextEditingController();
+  final _passwordC = TextEditingController();
+  bool _loading = false;
 
   @override
   void dispose() {
-    // Bersihkan controller
     _usernameC.dispose();
     _passwordC.dispose();
     super.dispose();
   }
 
-  // Fungsi ketika tombol Login ditekan
+  // Fungsi ketika tombol Login
   Future<void> _onLogin() async {
     if (!_formKey.currentState!.validate()) return; // Validasi
 
@@ -42,13 +39,12 @@ class _LoginPageState extends State<LoginPage> {
     setState(() => _loading = false); // Matikan loading
 
     if (success) {
-      // Kalau login sukses, pindah ke main shell
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const MainShellPage()),
       );
     } else {
-      // Kalau gagal, tampilkan snackbar
+      // Kalau gagal
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Username / password salah atau belum registrasi.'),
@@ -106,11 +102,11 @@ class _LoginPageState extends State<LoginPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Form(
-                    key: _formKey, // Hubungkan form dengan key
+                    key: _formKey,
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: _usernameC, // Input username
+                          controller: _usernameC,
                           decoration: const InputDecoration(
                             labelText: 'Username',
                             prefixIcon: Icon(Icons.person),
@@ -121,8 +117,8 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(height: 12),
                         TextFormField(
-                          controller: _passwordC, // Input password
-                          obscureText: true, // Sembunyikan teks
+                          controller: _passwordC,
+                          obscureText: true,
                           decoration: const InputDecoration(
                             labelText: 'Password',
                             prefixIcon: Icon(Icons.lock),

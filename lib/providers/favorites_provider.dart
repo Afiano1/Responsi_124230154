@@ -1,5 +1,3 @@
-// providers/favorites_provider.dart
-
 import 'package:flutter/foundation.dart';
 import '../models/restaurant.dart';
 

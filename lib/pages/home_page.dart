@@ -1,5 +1,3 @@
-// lib/pages/home_page.dart
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,24 +34,18 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // ⬇️ PENTING: pakai fungsi yang juga ambil detail (bukan cuma /list)
     _futureRestaurants = _loadRestaurantsWithDetail();
   }
 
-  /// Ambil list restoran lalu ambil detail untuk masing-masing restoran
-  /// supaya field `categories` terisi (Italia/Modern/Sunda/Jawa/Bali)
   Future<List<Restaurant>> _loadRestaurantsWithDetail() async {
     // 1. Ambil /list
     final list = await _apiService.fetchRestaurantList();
-
-    // 2. Untuk tiap restoran, ambil /detail/{id}
     final detailedList = await Future.wait(
       list.map((r) async {
         try {
           final detail = await _apiService.fetchRestaurantDetail(r.id);
           return detail;
         } catch (_) {
-          // Kalau gagal ambil detail, tetap pakai data dari /list
           return r;
         }
       }),
@@ -186,18 +178,14 @@ class _HomePageState extends State<HomePage> {
 
               List<Restaurant> data = snapshot.data ?? [];
               if (data.isEmpty) {
-                return const Center(
-                  child: Text('Tidak ada data restoran'),
-                );
+                return const Center(child: Text('Tidak ada data restoran'));
               }
 
-              // Filter berdasarkan kategori (kecuali "Semua")
               if (_selectedCategory != "Semua") {
                 data = data.where((r) {
                   return r.categories.any(
                     (c) =>
-                        c.name.toLowerCase() ==
-                        _selectedCategory.toLowerCase(),
+                        c.name.toLowerCase() == _selectedCategory.toLowerCase(),
                   );
                 }).toList();
               }

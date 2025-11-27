@@ -1,10 +1,9 @@
-// pages/main_shell_page.dart
 
 import 'package:flutter/material.dart';
-import '../services/auth_service.dart'; // Untuk logout & ambil username
-import 'home_page.dart'; // Halaman list artikel
-import 'favorites_page.dart'; // Halaman favorite
-import 'login_page.dart'; // Untuk kembali ke login ketika logout
+import '../services/auth_service.dart'; 
+import 'home_page.dart'; 
+import 'favorites_page.dart'; 
+import 'login_page.dart'; 
 
 class MainShellPage extends StatefulWidget {
   const MainShellPage({super.key});
@@ -14,19 +13,19 @@ class MainShellPage extends StatefulWidget {
 }
 
 class _MainShellPageState extends State<MainShellPage> {
-  int _currentIndex = 0; // Index bottom navigation
-  String _username = ''; // Nama user yang login
+  int _currentIndex = 0; 
+  String _username = ''; 
 
-  // List halaman yang dipakai di bottom navigation
+  
   final _pages = const [
-    HomePage(), // Index 0
-    FavoritesPage(), // Index 1
+    HomePage(), 
+    FavoritesPage(), 
   ];
 
   @override
   void initState() {
     super.initState();
-    _loadUsername(); // Ambil username dari AuthService
+    _loadUsername(); 
   }
 
   Future<void> _loadUsername() async {
@@ -38,9 +37,9 @@ class _MainShellPageState extends State<MainShellPage> {
   }
 
   Future<void> _logout() async {
-    await AuthService.logout(); // Set is_logged_in = false
+    await AuthService.logout(); 
     if (!mounted) return;
-    // Pindah ke LoginPage dan hapus semua route sebelumnya
+    // Pindah ke LoginPage dan hapus
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (_) => const LoginPage()),
@@ -51,7 +50,7 @@ class _MainShellPageState extends State<MainShellPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Gunakan container gradient untuk header di atas AppBar
+      // Gunakan container gradient 
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70),
         child: Container(
@@ -66,7 +65,7 @@ class _MainShellPageState extends State<MainShellPage> {
             ),
           ),
           child: AppBar(
-            // AppBar transparan di atas gradient
+            // AppBar transparan
             backgroundColor: Colors.transparent,
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,10 +92,10 @@ class _MainShellPageState extends State<MainShellPage> {
           ),
         ),
       ),
-      body: _pages[_currentIndex], // Tampilkan halaman sesuai index
+      body: _pages[_currentIndex], 
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex, // Index aktif
-        onTap: (i) => setState(() => _currentIndex = i), // Ganti index
+        currentIndex: _currentIndex, 
+        onTap: (i) => setState(() => _currentIndex = i), 
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),

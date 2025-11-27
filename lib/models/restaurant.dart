@@ -1,6 +1,3 @@
-// models/restaurant.dart
-
-/// Model utama untuk menampung data restoran dari API Dicoding
 class Restaurant {
   final String id;
   final String name;
@@ -10,7 +7,6 @@ class Restaurant {
   final String pictureId;
   final double rating;
 
-  /// Optional: detail tambahan yang hanya ada di endpoint /detail/{id}
   final List<Category> categories;
   final Menus? menus;
   final List<CustomerReview> customerReviews;
@@ -28,9 +24,7 @@ class Restaurant {
     this.customerReviews = const [],
   });
 
-  /// Factory untuk buat Restaurant dari JSON (bisa dipakai untuk /list dan /detail)
   factory Restaurant.fromJson(Map<String, dynamic> json) {
-    // Handle list categories (bisa null di /list atau /detail)
     final List<Category> categories =
         (json['categories'] as List?)
             ?.map((e) => Category.fromJson(e as Map<String, dynamic>))
@@ -63,14 +57,13 @@ class Restaurant {
     );
   }
 
-  /// 🔥 Helper: cek apakah restoran punya kategori tertentu
   bool hasCategory(String categoryName) {
     final target = categoryName.toLowerCase();
     return categories.any((c) => c.name.toLowerCase() == target);
   }
 }
 
-/// Kategori restoran (misal: Italia, Modern, dll)
+/// Kategori restoran
 class Category {
   final String name;
 

@@ -1,12 +1,10 @@
-// lib/pages/detail_page.dart
-
 import 'package:flutter/material.dart';
 
 import '../models/restaurant.dart';
 import '../services/api_service.dart';
 
 class DetailPage extends StatefulWidget {
-  final String restaurantId; // ID restoran yang dipilih
+  final String restaurantId; // ID restoran
 
   const DetailPage({super.key, required this.restaurantId});
 
@@ -16,12 +14,12 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   final ApiService _apiService = ApiService();
-  late Future<Restaurant> _future; 
+  late Future<Restaurant> _future;
 
   @override
   void initState() {
     super.initState();
-    // Panggil API untuk ambil detail berdasarkan id restoran
+    // Panggil API
     _future = _apiService.fetchRestaurantDetail(widget.restaurantId);
   }
 
@@ -81,7 +79,7 @@ class _DetailPageState extends State<DetailPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Gambar + badge rating 
+          // Gambar + badge rating
           Stack(
             children: [
               ClipRRect(
@@ -254,7 +252,7 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
-  //kerapian menu 
+  //kerapian menu
   Widget _menuChip(String text) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),

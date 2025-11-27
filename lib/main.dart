@@ -1,8 +1,7 @@
-// main.dart
-import 'package:flutter/material.dart'; // Paket UI utama Flutter
-import 'package:provider/provider.dart'; // Untuk state management sederhana
-import 'providers/favorites_provider.dart'; // Provider untuk data favorite
-import 'pages/splash_page.dart'; // Halaman splash sebagai entry pertama app
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'providers/favorites_provider.dart';
+import 'pages/splash_page.dart';
 
 void main() {
   runApp(const MyApp());

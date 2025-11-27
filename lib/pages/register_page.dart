@@ -1,7 +1,5 @@
-// pages/register_page.dart
-
 import 'package:flutter/material.dart';
-import '../services/auth_service.dart'; // Untuk simpan data registrasi
+import '../services/auth_service.dart';
 import 'login_page.dart'; // Untuk kembali ke login
 
 class RegisterPage extends StatefulWidget {
@@ -12,14 +10,13 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final _formKey = GlobalKey<FormState>(); // Key untuk form
-  final _usernameC = TextEditingController(); // Controller input username
-  final _passwordC = TextEditingController(); // Controller input password
-  bool _loading = false; // State loading ketika proses registrasi
+  final _formKey = GlobalKey<FormState>();
+  final _usernameC = TextEditingController();
+  final _passwordC = TextEditingController();
+  bool _loading = false;
 
   @override
   void dispose() {
-    // Bersihkan controller ketika widget dihancurkan
     _usernameC.dispose();
     _passwordC.dispose();
     super.dispose();
@@ -27,12 +24,10 @@ class _RegisterPageState extends State<RegisterPage> {
 
   // Fungsi saat tombol register ditekan
   Future<void> _onRegister() async {
-    // Validasi form
     if (!_formKey.currentState!.validate()) return;
 
     setState(() => _loading = true); // Nyalakan loading
 
-    // Panggil AuthService.register untuk menyimpan data
     await AuthService.register(
       username: _usernameC.text.trim(),
       password: _passwordC.text,
@@ -47,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
       const SnackBar(content: Text('Registrasi berhasil, silakan login.')),
     );
 
-    // Pindah ke halaman login dan hapus halaman register dari stack
+    // Pindah ke halaman login dan hapus halaman register
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => const LoginPage()),
@@ -56,22 +51,17 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Background gradient ringan di atas
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          // Scroll kalau layar kecil
           padding: const EdgeInsets.all(20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start, // Title di kiri
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 8),
               const Text(
                 'Buat Akun Baru',
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
               const Text(
@@ -88,7 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Form(
-                    key: _formKey, // Hubungkan form dengan key
+                    key: _formKey,
                     child: Column(
                       children: [
                         TextFormField(
@@ -97,8 +87,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             labelText: 'Username',
                             prefixIcon: Icon(Icons.person),
                           ),
-                          validator: (v) =>
-                              v == null || v.isEmpty ? 'Username wajib diisi' : null,
+                          validator: (v) => v == null || v.isEmpty
+                              ? 'Username wajib diisi'
+                              : null,
                         ),
                         const SizedBox(height: 12),
                         TextFormField(
